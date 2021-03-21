@@ -9,6 +9,7 @@ const client_secret = "CLIENT_SECRET";
 const redirect_uri = "http://localhost:8080/callback";
 const scope = "playlist-read-private playlist-modify-private ";
 const webApi = "https://api.spotify.com/v1/me/playlists";
+const PORT = process.env.PORT || 5000;
 
 // Express:
 const app = express();
@@ -86,4 +87,4 @@ const APIController = {
 
 };
 
-app.listen(5000);
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
