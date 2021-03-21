@@ -1,0 +1,19 @@
+{
+  "name": "spotifyplaylist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "btoa": "^1.2.1",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "path": "^0.12.7",
+    "querystring": "^0.2.1",
+    "simple-oauth2": "^4.2.0"
+  }
+}
