@@ -40,7 +40,6 @@ app.get("/callback", (req, res) => {
     loadGenres().then((value) => {
 
         res.writeHead(200, {"Content-type": "text/plain"});
-        // res.write(value.items[0].name);
         for (const playlist of value.items) {
             res.write(playlist.name + "\n");
         }
@@ -56,7 +55,7 @@ const APIController = {
         const urlencoded = new URLSearchParams();
         urlencoded.append("grant_type", "authorization_code");
         urlencoded.append("code", code);
-        urlencoded.append("redirect_uri", REDIRECT_URI);
+        urlencoded.append("redirect_uri", redirect_uri);
 
         const result = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
