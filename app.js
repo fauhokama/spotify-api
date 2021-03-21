@@ -56,7 +56,7 @@ const APIController = {
         const urlencoded = new URLSearchParams();
         urlencoded.append("grant_type", "authorization_code");
         urlencoded.append("code", code);
-        urlencoded.append("redirect_uri", "http://localhost:8080/callback");
+        urlencoded.append("redirect_uri", REDIRECT_URI);
 
         const result = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
