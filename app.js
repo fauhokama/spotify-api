@@ -4,9 +4,9 @@ const querystring = require("querystring"); // querystring: stringify -> json to
 const fetch = require("node-fetch");
 
 // Credentials:
-const client_id = "CLIENT_ID";
-const client_secret = "CLIENT_SECRET";
-const redirect_uri = "http://localhost:8080/callback";
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
+const redirect_uri = process.env.REDIRECT_URI;
 const scope = "playlist-read-private playlist-modify-private ";
 const webApi = "https://api.spotify.com/v1/me/playlists";
 const PORT = process.env.PORT || 5000;
