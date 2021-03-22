@@ -1,5 +1,5 @@
-const express = require("express"); // express -> Node web framework
-const path = require("path"); // path: path to this dir to use html
+const express = require("express");
+const path = require("path");
 const querystring = require("querystring"); // querystring: stringify -> json to string.
 const fetch = require("node-fetch");
 
@@ -7,13 +7,11 @@ const fetch = require("node-fetch");
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
 const redirect_uri = process.env.REDIRECT_URI;
-const scope = "playlist-read-private playlist-modify-private ";
-const webApi = "https://api.spotify.com/v1/me/playlists";
+const scope = "playlist-read-private";
 const PORT = process.env.PORT || 5000;
 
-// Express:
-const app = express();
 
+const app = express();
 app.use(express.static('public'));
 
 app.get("/", (req, res) => {
@@ -21,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/github", (req, res) => {
-    res.redirect('https://github.com/fauhokama');
+    res.redirect('https://github.com/fauhokama/spotify-api');
 });
 
 
@@ -39,19 +37,16 @@ app.get("/login", (req, res) => {
 
 app.get("/callback", (req, res) => {
     const code = req.query.code;
-    const loadGenres = async () => {
-        const token = await APIController._getToken(code);
-        const playlist = await APIController._getPlaylist(token);
-        return await playlist;
-    }
-    loadGenres().then((value) => {
 
-        res.writeHead(200, {"Content-type": "text/plain"});
-        for (const playlist of value.items) {
-            res.write(playlist.name + "\n");
-        }
-        res.end();
-    });
+
+    const _sendTokenToBrowser = async () => {
+        const token = await APIController._getToken(code);
+        res.redirect('/#' +
+            querystring.stringify({
+                access_token: token,
+            }));
+    }
+    _sendTokenToBrowser();
 });
 
 const APIController = {
@@ -73,24 +68,10 @@ const APIController = {
             body: urlencoded,
             redirect: "follow",
         });
-
+        
         const data = await result.json();
         return data.access_token;
-    },
-
-    _getPlaylist: async function (token) {
-        const result = await fetch(webApi, {
-            method: 'GET',
-            headers: {
-                "Authorization": "Bearer " + token
-            },
-            redirect: 'follow'
-        });
-
-        const data = await result.json();
-        return data;
     }
-
 };
 
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
