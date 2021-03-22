@@ -20,6 +20,11 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/index.html"));
 });
 
+app.get("/github", (req, res) => {
+    res.redirect('https://github.com/fauhokama');
+});
+
+
 app.get("/login", (req, res) => {
     res.redirect(
         "https://accounts.spotify.com/authorize?" +
